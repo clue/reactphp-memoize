@@ -15,10 +15,16 @@ Once [installed](#install), you can use the following code to decorate a demo
 function and avoid sending unneeded HTTP requests:
 
 ```php
-$browser = new React\Http\Browser($loop);
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+$browser = new React\Http\Browser();
 
 $fetch = function (int $id) use ($browser) {
-    return $browser->get('http://httpbingo.org/status/' . $id)->then(function (ResponseInterface $response) {
+    return $browser->get(
+        'http://httpbingo.org/status/' . $id
+    )->then(function (Psr\Http\Message\ResponseInterface $response) {
         return $response->getStatusCode();
     });
 }
